@@ -171,4 +171,14 @@ void playFairSifriranje(string& kljuc, string& text) {
 		text[a+1] = znak2;
 
 	}
+
+}
+
+void playFairDesifriranje(string& kljuc, string& text) {
+	//step 1 isti
+	for(int i = 0; i < kljuc.length(); i++){
+		if(kljuc[i] >= 'A' && kljuc[i] <= 'Z'){
+			kljuc[i] += 32;
+		}
+	}
 }
