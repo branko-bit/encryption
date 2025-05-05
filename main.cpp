@@ -229,4 +229,36 @@ void playFairDesifriranje(string& kljuc, string& text) {
 		}
 	}
 	izpisMatrike(matrikaKljucev);
+
+	for(int a = 0; a < text.length() - 1; a+=2){
+		char znak1 = text[a];
+		char znak2 = text[a+1];
+
+		pair<int, int> znak1poz = pozicijaZnaka(znak1, matrikaKljucev);
+		pair<int, int> znak2poz = pozicijaZnaka(znak2, matrikaKljucev);
+
+		int i = znak1poz.first;
+		int j = znak1poz.second;
+		int k = znak2poz.first;
+		int f = znak2poz.second;
+
+		if(i != k && j != f){
+			znak1 = matrikaKljucev[i][f];
+			znak2 = matrikaKljucev[k][j];
+		} else if(i == k){
+			znak1 = matrikaKljucev[i][(j+4)%5];
+			znak2 = matrikaKljucev[k][(f+4)%5];
+		} else if(j == f){
+			// Premik gor v istem stolpcu
+			znak1 = matrikaKljucev[(i+4)%5][j];
+			znak2 = matrikaKljucev[(k+4)%5][f];
+		}
+
+		if(znak2 == 'x'){
+			znak2 = znak1;
+		}
+
+		text[a] = znak1;
+		text[a+1] = znak2;
+	}
 }
