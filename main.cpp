@@ -8,6 +8,17 @@ using namespace std;
 
 ofstream out;
 
+string inputText(const string& pot) {
+    ifstream input(pot, ios::binary);
+    if (!input.is_open()) {
+        return string();
+    }
+
+    string content((istreambuf_iterator<char>(input)), istreambuf_iterator<char>());
+    input.close();
+    return content;
+}
+
 void izpisVDatoteko(const string& imeDatoteke, const string& text) {
     ofstream datoteka(imeDatoteke);
     if (!datoteka.is_open()) {
