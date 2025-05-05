@@ -171,4 +171,94 @@ void playFairSifriranje(string& kljuc, string& text) {
 		text[a+1] = znak2;
 
 	}
+
+}
+
+void playFairDesifriranje(string& kljuc, string& text) {
+	//step 1 isti
+	for(int i = 0; i < kljuc.length(); i++){
+		if(kljuc[i] >= 'A' && kljuc[i] <= 'Z'){
+			kljuc[i] += 32;
+		}
+	}
+
+	//sestavljanje matrike (step 1)
+	char mozneCrke[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	char matrikaKljucev[5][5];
+	int vrstica = 0;
+	int stolpec = 0;
+
+	for(int i = 0; i < kljuc.length(); i++){
+		bool isI = false;
+		if(kljuc[i] == 'j'){
+			if(!jeZeNoter(matrikaKljucev, 'i')){
+				matrikaKljucev[vrstica][stolpec] = 'i';
+			}else{
+				continue;
+			}
+		}
+
+		if(!jeZeNoter(matrikaKljucev, kljuc[i])){
+			matrikaKljucev[vrstica][stolpec] = kljuc[i];
+		}else{
+			continue;
+		}
+
+		stolpec++;
+		if(stolpec == 5){
+			stolpec = 0;
+			vrstica++;
+		}
+	}
+
+	int trenutniChar = 0;
+	for(int i = (vrstica * 5) + stolpec; i < 25; i++){
+		char crka = mozneCrke[trenutniChar];
+		if(!jeZeNoter(matrikaKljucev, crka)){
+			matrikaKljucev[vrstica][stolpec] = crka;
+			trenutniChar++;
+		}else{
+			i--;
+			trenutniChar++;
+			continue;
+		}
+		stolpec++;
+		if(stolpec == 5){
+			stolpec = 0;
+			vrstica++;
+		}
+	}
+	izpisMatrike(matrikaKljucev);
+
+	for(int a = 0; a < text.length() - 1; a+=2){
+		char znak1 = text[a];
+		char znak2 = text[a+1];
+
+		pair<int, int> znak1poz = pozicijaZnaka(znak1, matrikaKljucev);
+		pair<int, int> znak2poz = pozicijaZnaka(znak2, matrikaKljucev);
+
+		int i = znak1poz.first;
+		int j = znak1poz.second;
+		int k = znak2poz.first;
+		int f = znak2poz.second;
+
+		if(i != k && j != f){
+			znak1 = matrikaKljucev[i][f];
+			znak2 = matrikaKljucev[k][j];
+		} else if(i == k){
+			znak1 = matrikaKljucev[i][(j+4)%5];
+			znak2 = matrikaKljucev[k][(f+4)%5];
+		} else if(j == f){
+			// Premik gor v istem stolpcu
+			znak1 = matrikaKljucev[(i+4)%5][j];
+			znak2 = matrikaKljucev[(k+4)%5][f];
+		}
+
+		if(znak2 == 'x'){
+			znak2 = znak1;
+		}
+
+		text[a] = znak1;
+		text[a+1] = znak2;
+	}
 }
