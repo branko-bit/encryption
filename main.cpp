@@ -65,3 +65,17 @@ void izpisTexta(const string& text) {
 		cout << text[i];
 	}
 }
+
+void playFairSifriranje(string& kljuc, string& text) {    
+    //v male črke
+	for(int i = 0; i < kljuc.length(); i++){
+		if(kljuc[i] >= 'A' && kljuc[i] <= 'Z'){
+			kljuc[i] += 32;
+		}
+	}
+	for(int i = 0; i < text.length(); i++){
+		if(text[i] >= 'A' && text[i] <= 'Z'){
+			text[i] += 32;
+		}
+	}
+}
