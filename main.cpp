@@ -27,3 +27,14 @@ void izpisMatrike(char matrikaKljucev[5][5]) {
 		cout << endl;
 	}
 }
+
+pair<int,int> pozicijaZnaka(char znak, char matrika[5][5]){
+	for(int i = 0; i < 5; i++){
+		for(int j = 0; j < 5; j++){
+			if(matrika[i][j] == znak){
+				return {i,j};
+			}
+		}
+	}
+	return {-1,-1};
+}
