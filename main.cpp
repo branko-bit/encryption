@@ -8,6 +8,16 @@ using namespace std;
 
 ofstream out;
 
+void izpisVDatoteko(const string& imeDatoteke, const string& text) {
+    ofstream datoteka(imeDatoteke);
+    if (!datoteka.is_open()) {
+        cerr << "Napaka pri odpiranju datoteke za pisanje: " << imeDatoteke << endl;
+        return;
+    }
+    datoteka << text;
+    datoteka.close();
+}
+
 bool jeZeNoter(char matrikaKljucev[5][5], int znak) {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
