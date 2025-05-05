@@ -8,6 +8,27 @@ using namespace std;
 
 ofstream out;
 
+string inputText(const string& pot) {
+    ifstream input(pot, ios::binary);
+    if (!input.is_open()) {
+        return string();
+    }
+
+    string content((istreambuf_iterator<char>(input)), istreambuf_iterator<char>());
+    input.close();
+    return content;
+}
+
+void izpisVDatoteko(const string& imeDatoteke, const string& text) {
+    ofstream datoteka(imeDatoteke);
+    if (!datoteka.is_open()) {
+        cerr << "Napaka pri odpiranju datoteke za pisanje: " << imeDatoteke << endl;
+        return;
+    }
+    datoteka << text;
+    datoteka.close();
+}
+
 bool jeZeNoter(char matrikaKljucev[5][5], int znak) {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
@@ -37,4 +58,10 @@ pair<int,int> pozicijaZnaka(char znak, char matrika[5][5]){
 		}
 	}
 	return {-1,-1};
+}
+
+void izpisTexta(const string& text) {
+	for (int i = 0; i < text.length(); i++) {
+		cout << text[i];
+	}
 }
