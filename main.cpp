@@ -262,3 +262,31 @@ void playFairDesifriranje(string& kljuc, string& text) {
 		text[a+1] = znak2;
 	}
 }
+
+int main(int argc, const char* const argv[]) {
+	if (argc != 4) {
+		return -1;
+	}
+ 
+	string text = inputText(argv[3]);
+	string kljuc = argv[2];
+
+	if (!out) {
+		return -2;
+	}
+	out.open("out.txt");
+
+	if (argv[1][0] == 'e') {
+		playFairSifriranje(kljuc, text);
+		//cout<<"Sifrirano:"<<endl;
+		//izpisTexta(text);
+		izpisVDatoteko("out_e.txt", text);
+	}
+	else if (argv[1][0] == 'd') {
+		playFairDesifriranje(kljuc, text);
+		//cout<<"Desifrirano:"<<endl;
+		//izpisTexta(text);
+		izpisVDatoteko("out_d.txt", text);
+	}
+	return 0;
+}
