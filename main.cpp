@@ -38,3 +38,9 @@ pair<int,int> pozicijaZnaka(char znak, char matrika[5][5]){
 	}
 	return {-1,-1};
 }
+
+void izpisTexta(const string& text) {
+	for (int i = 0; i < text.length(); i++) {
+		cout << text[i];
+	}
+}
